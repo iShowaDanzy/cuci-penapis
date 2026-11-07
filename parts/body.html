@@ -1,0 +1,160 @@
+<canvas id="c"></canvas>
+<!--ICONS-->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true"><defs>
+  <symbol id="burst" viewBox="-100 -100 200 200"><g fill="#ffd24a" opacity=".32"><path d="M0 0L-9-100H9z"/><path d="M0 0L-9-100H9z" transform="rotate(22.5)"/><path d="M0 0L-9-100H9z" transform="rotate(45)"/><path d="M0 0L-9-100H9z" transform="rotate(67.5)"/><path d="M0 0L-9-100H9z" transform="rotate(90)"/><path d="M0 0L-9-100H9z" transform="rotate(112.5)"/><path d="M0 0L-9-100H9z" transform="rotate(135)"/><path d="M0 0L-9-100H9z" transform="rotate(157.5)"/><path d="M0 0L-9-100H9z" transform="rotate(180)"/><path d="M0 0L-9-100H9z" transform="rotate(202.5)"/><path d="M0 0L-9-100H9z" transform="rotate(225)"/><path d="M0 0L-9-100H9z" transform="rotate(247.5)"/><path d="M0 0L-9-100H9z" transform="rotate(270)"/><path d="M0 0L-9-100H9z" transform="rotate(292.5)"/><path d="M0 0L-9-100H9z" transform="rotate(315)"/><path d="M0 0L-9-100H9z" transform="rotate(337.5)"/></g><circle r="40" fill="#ffe27a" opacity=".22"/></symbol>
+</defs></svg>
+
+<div id="top"><div id="topIn">
+  <div id="bar">
+    <div id="stages">
+      <div class="stg"><svg class="ic"><use href="#ic-shield"/></svg>SELAMAT</div><div class="stg"><svg class="ic"><use href="#ic-filter"/></svg>PENAPIS</div><div class="stg"><svg class="ic"><use href="#ic-coil"/></svg>DALAM</div><div class="stg"><svg class="ic"><use href="#ic-snow"/></svg>UJI</div>
+    </div>
+    <div id="timer"><svg class="ic"><use href="#ic-clock"/></svg><span id="timerT">0:00</span></div>
+  </div>
+  <div id="scorebar">
+    <div id="scoreBox"><svg class="ic"><use href="#ic-gem"/></svg><span id="score">0</span></div>
+    <div id="combo" class="hidden"><svg class="ic"><use href="#ic-flame"/></svg><span id="comboN">x2</span></div>
+    <div id="rank"><div id="rankName"><span id="rankNow">PERANTIS</span><span id="rankNext">→ JURUTEKNIK MUDA</span></div><div id="rankBar"><i></i></div></div>
+  </div>
+  <div id="card">
+    <div id="cardHead">
+      <div id="stepNo"><span>Langkah 1/15</span><span id="mistakeCount"></span></div>
+      <div id="title">—</div>
+    </div>
+    <div id="cardBody">
+      <div id="hint"></div>
+      <div id="meter" class="hidden"><i></i><b></b></div>
+    </div>
+  </div>
+</div></div>
+<div id="photos"></div>
+<div id="tray" class="hidden">SKRU <i><svg><use href="#ic-screw"/></svg></i><i><svg><use href="#ic-screw"/></svg></i><i><svg><use href="#ic-screw"/></svg></i></div>
+
+<div id="remote" class="hidden">
+  <div id="lcd">24<small>°C</small></div>
+  <button id="pwr" aria-label="Butang ON/OFF remote">⏻</button>
+  <div class="lbl">ON / OFF</div>
+</div>
+
+<div id="bottom"><div id="tools"></div></div>
+<div id="toast"></div>
+<div id="banner"></div>
+<div id="pops"></div>
+<div id="rankup"><svg class="burst"><use href="#burst"/></svg><div class="k1">NAIK PANGKAT!</div><div class="k2" id="rankupName">JURUTEKNIK MUDA</div></div>
+<div id="flash"></div>
+<div id="cursor" class="hidden"></div>
+<svg id="ring" class="ring hidden" viewBox="0 0 84 84">
+  <circle cx="42" cy="42" r="34" fill="none" stroke="#191a18" stroke-width="12"/>
+  <circle cx="42" cy="42" r="34" fill="none" stroke="#2c2d29" stroke-width="7"/>
+  <circle id="ringFill" cx="42" cy="42" r="34" fill="none" stroke="#eac1d8" stroke-width="7" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 42 42)"/>
+  <g id="ringArrow"><path d="M42 3 l10 7 -10 7z" fill="#fff" stroke="#191a18" stroke-width="2.5" stroke-linejoin="round"/></g>
+</svg>
+<div id="guides"></div>
+
+<!-- intro -->
+<div id="intro" class="screen">
+  <div class="sheet">
+    <div class="sheet-head"><img src="media/wordmark.svg" alt="FIXERS" style="filter:brightness(0) saturate(100%)"><span>ACADEMY</span></div>
+    <div class="sheet-body">
+      <div class="big">Cuci Penapis<br><em>Challenge</em></div>
+      <p class="p">Aircond rumah dah tak sejuk? Buat macam juruteknik sebenar: selamat dulu, buka unit, cuci penapis, pasang balik, uji.</p>
+      <div class="chips"><span class="chip"><svg class="ic"><use href="#ic-filter"/></svg>15 langkah</span><span class="chip"><svg class="ic"><use href="#ic-clock"/></svg>± 2 minit</span><span class="chip"><svg class="ic"><use href="#ic-gem"/></svg>Kumpul mata</span></div>
+      <p class="p" style="font-size:13px;color:var(--mute);margin-top:10px;display:flex;gap:8px;align-items:center"><svg class="ic" style="font-size:28px"><use href="#ic-bolt"/></svg>Silap langkah keselamatan = gagal terus. Hati-hati.</p>
+      <button class="btn slab pink" id="startBtn"><svg class="ic"><use href="#ic-play"/></svg>MULA</button>
+      <div class="fine" id="bestLine"></div>
+    </div>
+  </div>
+</div>
+
+<!-- wash choice -->
+<div id="choice" class="screen hidden">
+  <div class="sheet">
+    <div class="sheet-head gold"><svg class="ic" style="font-size:24px"><use href="#ic-bulb"/></svg><span>SOALAN JURUTEKNIK</span></div>
+    <div class="sheet-body">
+      <div class="big" style="font-size:min(32px,8vw)">Bilas dari sebelah mana?</div>
+      <p class="p">Habuk melekat pada sebelah depan penapis (sebelah bilik). Jawapan betul = +50 mata.</p>
+      <div class="choice-row">
+        <button class="slab" data-side="back"><svg class="ic"><use href="#ic-rinse-back"/></svg>Sebelah belakang, supaya habuk keluar ikut arah ia masuk</button>
+        <button class="slab" data-side="front"><svg class="ic"><use href="#ic-spray-front"/></svg>Sebelah depan, terus pada habuk</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- fail -->
+<div id="fail" class="screen hidden">
+  <div class="sheet">
+    <div class="sheet-head bad"><svg class="ic" style="font-size:26px"><use href="#ic-bolt"/></svg><span>GAGAL</span></div>
+    <div class="sheet-body">
+      <div class="big">Kejutan <em style="color:var(--badHi)">elektrik!</em></div>
+      <p class="p">Kamu sentuh unit semasa kuasa masih ON. Juruteknik sebenar <b>sentiasa</b>:</p>
+      <ul class="pts">
+        <li><span class="n">1</span><div><b>Matikan dengan remote</b><span>Biar unit berhenti dengan betul.</span></div></li>
+        <li><span class="n">2</span><div><b>Tutup suis dinding</b><span>Baru selamat untuk sentuh unit.</span></div></li>
+      </ul>
+      <button class="btn slab pink" id="retryBtn"><svg class="ic"><use href="#ic-rot-cw"/></svg>CUBA LAGI</button>
+    </div>
+  </div>
+</div>
+
+<!-- result -->
+<div id="result" class="screen hidden">
+  <div class="sheet">
+    <div class="sheet-head gold"><svg class="ic" style="font-size:26px"><use href="#ic-check"/></svg><span>KERJA SIAP!</span></div>
+    <div class="sheet-body">
+      <div class="starsWrap"><svg class="burst"><use href="#burst"/></svg><div class="stars" id="stars"></div></div>
+      <div class="big" id="rankTitle" style="text-align:center;margin-top:0">Juruteknik Muda</div>
+      <div class="bigscore"><svg class="ic"><use href="#ic-gem"/></svg><span id="rScore">0</span></div>
+      <div class="bestline" id="rBest"></div>
+      <div class="meta">
+        <div><svg class="ic"><use href="#ic-clock"/></svg><b id="rTime">0:00</b><span>MASA</span></div>
+        <div><svg class="ic"><use href="#ic-flame"/></svg><b id="rXp">0</b><span>COMBO</span></div>
+        <div><svg class="ic"><use href="#ic-cross"/></svg><b id="rMis">0</b><span>SILAP</span></div>
+      </div>
+      <div class="badge"><svg class="ic"><use href="#ic-medal"/></svg><div><b>Lencana: Penapis Bersih</b><span>Kemahiran pertama modul C1-01 Kebersihan Asas Fixers.</span></div></div>
+      <ul class="lessons" id="lessons"></ul>
+      <button class="btn slab pink" id="nextBtn"><svg class="ic"><use href="#ic-play"/></svg>TERUSKAN</button>
+      <button class="btn slab ghost" id="shareBtn"><svg class="ic"><use href="#ic-share"/></svg><span>Cabar kawan</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- cohort -->
+<div id="cohort" class="screen hidden">
+  <div class="sheet">
+    <div class="sheet-head"><img src="media/wordmark.svg" alt="FIXERS" style="filter:brightness(0) saturate(100%)"><span>ACADEMY</span></div>
+    <div class="sheet-body">
+      <div class="kicker">Kamu baru buat kerja sebenar</div>
+      <div class="big">Siapa kata kerja <em>blue collar</em> membosankan?</div>
+      <p class="p">Macam inilah cara belajar di Fixers Academy: main dulu, kemudian buat betul-betul dengan jurulatih.</p>
+      <ul class="pts">
+        <li><svg class="ic"><use href="#ic-cash"/></svg><div><b id="salaryLine">Gaji permulaan RM2,000 – RM2,500</b><span>Kemahiran yang orang sentiasa perlukan.</span></div></li>
+        <li><svg class="ic"><use href="#ic-toolbox"/></svg><div><b>Jaminan kerja sebaik kamu mula</b><span>Belajar, kemudian terus bekerja.</span></div></li>
+        <li><svg class="ic"><use href="#ic-cap"/></svg><div><b>Tak perlu PTPTN</b><span>Kohort pertama PERCUMA.</span></div></li>
+      </ul>
+      <p class="p" style="font-size:13px;margin-top:12px">Tempat terhad: 8–10 orang. Keutamaan untuk B40, anak yatim, Orang Asli dan wanita.</p>
+      <div class="kicker" style="margin-top:6px;color:var(--mute)">Kamu sekarang?</div>
+      <div class="chips" id="who">
+        <span class="chip pick" data-who="spm">Lepasan SPM</span>
+        <span class="chip pick" data-who="kerja">Sedang bekerja</span>
+        <span class="chip pick" data-who="belajar">Masih belajar</span>
+        <span class="chip pick" data-who="lain">Lain-lain</span>
+      </div>
+      <a class="btn slab pink" id="joinBtn" target="_blank" rel="noopener">SAYA BERMINAT →</a>
+      <button class="btn slab ghost" id="filmBtn"><svg class="ic"><use href="#ic-play"/></svg><span>Tonton kisah Ali (58 s)</span></button>
+      <button class="btn slab ghost" id="againBtn"><svg class="ic"><use href="#ic-rot-cw"/></svg><span>Main lagi</span></button>
+      <div class="fine">Butang ini membuka academy.fixers.my. Game ini tidak menyimpan maklumat peribadi kamu.</div>
+      <div class="fine draftNote hidden" style="color:var(--goldHi)">DRAF: angka gaji, jaminan kerja dan tempoh belum disahkan Fixers.</div>
+    </div>
+  </div>
+</div>
+
+<!-- intro clip (skippable) and the full film -->
+<div id="introVid" class="vidwrap hidden">
+  <video id="introV" src="media/intro.mp4" poster="media/intro-poster.jpg" playsinline preload="auto"></video>
+  <button class="skip slab pink" id="skipIntro">LANGKAU ▶</button>
+</div>
+<div id="filmVid" class="vidwrap hidden">
+  <video id="filmV" src="media/kisah-ali.mp4" poster="media/kisah-poster.jpg" playsinline controls preload="none"></video>
+  <button class="skip slab pink" id="closeFilm">TUTUP ✕</button>
+</div>
