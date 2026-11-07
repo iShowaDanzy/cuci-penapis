@@ -101,7 +101,7 @@ The settings live in `CONFIG` at the top of the script:
 
 ## Fixers must confirm before release
 
-- **Cohort-screen claims:** "Gaji permulaan RM2,000 – RM2,500", "Jaminan kerja sebaik kamu mula", "Tak perlu PTPTN / percuma", 8–10 seats, and the priority groups.
+- **Cohort-screen claims (reworded 7 Nov after the Fixers voice notes):** "Gaji permulaan RM2,000 – RM2,500", "Penempatan kerja dijamin" after one year of training, "Kohort pertama PERCUMA" (later cohorts are paid, so no "tak perlu PTPTN"), "Sikap nombor satu" with an interview, 8–10 seats, and the priority groups. The game is framed as a taste of the work, not how the course teaches. The "Tonton kisah Ali" button is hidden until the film is re-cut with the new script.
 - **Casing screws:** the number and position of the screws vary by model. Removing the casing goes beyond basic filter cleaning, so Cikgu John should confirm whether this step stays in the game.
 - **Rinsing from the back:** this is common advice. Fixers should confirm it.
 - **Sign-up page:** academy.fixers.my needs a free-cohort page that reads `src` and `who`.
