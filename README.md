@@ -46,7 +46,7 @@ The steps follow Fixers C1-01 (Basic Hygiene) and the owner-manual guides (Samsu
 **Scoring:**
 - Stars: 3 with no mistakes, 2 with one mistake, 1 with more.
 - XP adds a time bonus and subtracts a penalty for each mistake.
-- Ranks are Perantis, Juruteknik Muda and Pro Fixers.
+- Ranks are Perantis, Juruteknik Muda and Juruteknik Pro.
 - Every player gets the badge "Penapis Bersih".
 
 **Brand and video (7 Nov 2026):**
@@ -75,7 +75,7 @@ The UI ports the LihFolk "Ink and Candy" kit (from the Roblox skills) to the web
 - Small rewards along the way: remote off +20, wall switch in the right order +40, each filter +25, each screw +15, every 25% of cleaning +10, each proof photo +50, a correct quiz answer +50, drying in the shade +20.
 - A mistake costs 75 and resets the combo.
 
-**Ranks:** PERANTIS from 0, JURUTEKNIK MUDA from 1600, PRO FIXERS from 2800. A gold bar fills toward the next rank, and a rank-up shows a sunburst.
+**Ranks:** PERANTIS from 0, JURUTEKNIK MUDA from 1600, JURUTEKNIK PRO from 2800. A gold bar fills toward the next rank, and a rank-up shows a sunburst.
 
 **Sounds:** files in `media/sfx` (chime, ping, pop, sparkle, error, whoosh, key press, click). The synthesised sounds remain as a fallback.
 
@@ -84,8 +84,8 @@ The UI ports the LihFolk "Ink and Candy" kit (from the Roblox skills) to the web
 ## Job call and walk-in (7 Nov 2026)
 
 After MULA (and the intro clip), the game runs a short opening before the work:
-1. **Incoming job:** the Fixers app phone rings with a new job: customer, area and distance, the service, the time, and the pay (`jobPay` RM80, plus `jobBonus` RM20 for a job with no mistakes). TOLAK only shakes the phone ("Rezeki jangan ditolak!").
-2. **Walk-in:** TERIMA starts a first-person walk from the Fixers van to the customer's terrace house (No. 12), with footsteps. The door swings open, the view fades, and you walk into the room to the aircond.
+1. **Incoming job:** the phone of a generic aircond company (`company`, "Sejuk Servis") rings with a new job: customer, area and distance, the service, the time, and the pay (`jobPay` RM80, plus `jobBonus` RM20 for a job with no mistakes). TOLAK only shakes the phone ("Rezeki jangan ditolak!").
+2. **Walk-in:** TERIMA starts a first-person walk from the company van to the customer's terrace house (No. 12), with footsteps. The door swings open, the view fades, and you walk into the room to the aircond.
 3. **Greeting:** the customer says the aircond isn't cold, and the timer starts.
 
 The 3D street sits at z 170, out of the room camera's range. The results screen counts up the pay with a chime. The money figures are placeholders that Fixers must approve.
@@ -97,11 +97,11 @@ The settings live in `CONFIG` at the top of the script:
 - `signupUrl`: where the "Saya berminat" button goes.
 - `salary`: the pay line on the cohort screen.
 - `dryingSeconds`: how long the filters take to dry.
-- `jobPay`, `jobBonus`, `customer`, `area`: the job card on the phone and the pay on the results screen.
+- `company`, `jobPay`, `jobBonus`, `customer`, `area`: the job card on the phone and the pay on the results screen.
 
 ## Fixers must confirm before release
 
-- **Cohort-screen claims (reworded 7 Nov after the Fixers voice notes):** "Gaji permulaan RM2,000 – RM2,500", "Penempatan kerja dijamin" after one year of training, "Kohort pertama PERCUMA" (later cohorts are paid, so no "tak perlu PTPTN"), "Sikap nombor satu" with an interview, 8–10 seats, and the priority groups. The game is framed as a taste of the work, not how the course teaches. The "Tonton kisah Ali" button is hidden until the film is re-cut with the new script.
+- **Cohort-screen claims (reworded 7–8 Nov from the Fixers and Santhi feedback):** "Gaji permulaan industri RM2,000 – RM2,500"; "Penempatan kerja dijamin" after study plus on-the-job training; course "kurang dari setahun"; "Kohort pertama PERCUMA", limited to 5–8 people (later cohorts are paid, so no "tak perlu PTPTN"); "Sikap & komitmen" with an interview. The screen says plainly that the game is only a short simulation and training is hands-on. Fixers Academy is a training body only: it places graduates with aircond companies and does not service aircond itself. So the job intro uses a generic company, `CONFIG.company` ("Sejuk Servis"), on the phone app and the van, and the top rank is "Juruteknik Pro", not "Pro Fixers". The closing line follows Santhi's ask: be competent, make money, learn the fun way, join Fixers Academy. The "Tonton kisah Ali" button stays hidden until the film is re-cut.
 - **Casing screws:** the number and position of the screws vary by model. Removing the casing goes beyond basic filter cleaning, so Cikgu John should confirm whether this step stays in the game.
 - **Rinsing from the back:** this is common advice. Fixers should confirm it.
 - **Sign-up page:** academy.fixers.my needs a free-cohort page that reads `src` and `who`.

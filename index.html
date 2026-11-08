@@ -256,9 +256,9 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
 .pscreen{border-radius:34px;overflow:hidden;background:var(--bands),linear-gradient(#262723,#171816);position:relative}
 .pnotch{position:absolute;left:50%;top:8px;width:84px;height:22px;margin-left:-42px;border-radius:12px;background:#0f100e;z-index:2}
 .pstatus{display:flex;justify-content:space-between;padding:10px 22px 4px;font:600 12px var(--disp);color:#fff}
-.papp{display:flex;align-items:center;gap:8px;margin:6px 12px 0;padding:9px 12px;border-radius:14px;border:3px solid var(--ink);background:var(--bands),linear-gradient(var(--pinkHi),var(--pink))}
-.papp img{height:17px;filter:brightness(0)}
-.papp span{font:700 11px var(--disp);letter-spacing:.16em;color:var(--ink)}
+.papp{display:flex;align-items:center;gap:8px;margin:6px 12px 0;padding:9px 12px;border-radius:14px;border:3px solid var(--ink);background:linear-gradient(#bfe6ff,#7cc8ff)}
+.papp .ic{width:20px;height:20px}
+.papp span{font:700 12px var(--disp);letter-spacing:.12em;color:var(--ink)}
 .papp b{margin-left:auto;font:700 10px var(--disp);color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:8px;padding:1px 6px}
 .pnew{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0 8px;font:700 22px var(--disp);-webkit-text-stroke:5px var(--ink);paint-order:stroke fill;color:var(--goldHi)}
 .pnew .ic{font-size:30px;animation:bell .8s ease-in-out infinite}
@@ -627,7 +627,7 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
     <div class="pscreen">
       <div class="pnotch"></div>
       <div class="pstatus"><span>10:24</span><span>5G ▮▮▮</span></div>
-      <div class="papp"><img src="media/wordmark.svg" alt="FIXERS"><span>JOBS</span><b>1 BARU</b></div>
+      <div class="papp"><svg class="ic"><use href="#ic-snow"/></svg><span id="jobCo">SEJUK SERVIS</span><b>1 BARU</b></div>
       <div class="pnew" id="pnew"><svg class="ic"><use href="#ic-bulb"/></svg><span>KERJA BARU!</span></div>
       <div class="pcard">
         <div class="pcust"><div class="pav">PA</div><div><b id="jobCust">Puan Aishah</b><span id="jobArea">Taman Subang Jaya · 2.4 km</span></div></div>
@@ -726,14 +726,15 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
     <div class="sheet-body">
       <div class="kicker">Itu baru rasa sikit kerja sebenar</div>
       <div class="big">Siapa kata kerja <em>blue collar</em> membosankan?</div>
-      <p class="p">Di Fixers Academy, kamu belajar setahun dengan tangan sendiri, bersama jurulatih, atas unit sebenar.</p>
+      <p class="p">Game ini cuma simulasi ringkas. Di Fixers Academy, kamu belajar <b>kurang dari setahun</b> secara hands-on, bersama jurulatih, atas unit sebenar. Fixers Academy membina bakat. Bila tamat, kami tempatkan kamu dengan syarikat aircond.</p>
       <ul class="pts">
-        <li><svg class="ic"><use href="#ic-cash"/></svg><div><b id="salaryLine">Gaji permulaan RM2,000 – RM2,500</b><span>Kemahiran yang orang sentiasa perlukan.</span></div></li>
-        <li><svg class="ic"><use href="#ic-toolbox"/></svg><div><b>Penempatan kerja dijamin</b><span>Tamat latihan setahun, terus bekerja.</span></div></li>
-        <li><svg class="ic"><use href="#ic-cap"/></svg><div><b>Kohort pertama PERCUMA</b><span>Tempat terhad: 8–10 orang sahaja.</span></div></li>
-        <li><svg class="ic"><use href="#ic-shield"/></svg><div><b>Sikap nombor satu</b><span>Ada temuduga. Kami cari komitmen 100% dan semangat nak belajar.</span></div></li>
+        <li><svg class="ic"><use href="#ic-cash"/></svg><div><b id="salaryLine">Gaji permulaan industri RM2,000 – RM2,500</b><span>Kemahiran yang orang sentiasa perlukan.</span></div></li>
+        <li><svg class="ic"><use href="#ic-toolbox"/></svg><div><b>Penempatan kerja dijamin</b><span>Tamat belajar dan latihan di tempat kerja, terus bekerja.</span></div></li>
+        <li><svg class="ic"><use href="#ic-cap"/></svg><div><b>Kohort pertama PERCUMA</b><span>Terhad kepada 5–8 orang sahaja.</span></div></li>
+        <li><svg class="ic"><use href="#ic-shield"/></svg><div><b>Sikap &amp; komitmen</b><span>Ada temuduga. Kami cari sikap dan komitmen untuk terus maju.</span></div></li>
       </ul>
-      <p class="p" style="font-size:13px;margin-top:12px">Dah habis SPM tapi masih tak tahu hala tuju? Penat kerja hari-hari, duit tak lepas? Ini peluang kamu. Keutamaan untuk B40, anak yatim, Orang Asli dan wanita.</p>
+      <div class="big" style="font-size:22px;margin-top:14px">Nak <em>cekap</em> dan buat duit macam ni, sambil belajar dengan cara yang seronok? Sertai Fixers Academy.</div>
+      <p class="p" style="font-size:13px">Dah habis SPM tapi masih tak tahu hala tuju? Ini peluang kamu. Keutamaan untuk B40, anak yatim, Orang Asli dan wanita.</p>
       <div class="kicker" style="margin-top:6px;color:var(--mute)">Kamu sekarang?</div>
       <div class="chips" id="who">
         <span class="chip pick" data-who="spm">Lepasan SPM</span>
@@ -745,7 +746,7 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
       <button class="btn slab ghost hidden" id="filmBtn"><svg class="ic"><use href="#ic-play"/></svg><span>Tonton kisah Ali (58 s)</span></button>
       <button class="btn slab ghost" id="againBtn"><svg class="ic"><use href="#ic-rot-cw"/></svg><span>Main lagi</span></button>
       <div class="fine">Butang ini membuka academy.fixers.my. Game ini tidak menyimpan maklumat peribadi kamu.</div>
-      <div class="fine draftNote hidden" style="color:var(--goldHi)">DRAF: angka gaji, jaminan kerja, tempoh dan syarat belum disahkan Fixers.</div>
+      <div class="fine draftNote hidden" style="color:var(--goldHi)">DRAF: angka gaji, bayaran kerja, jaminan kerja, tempoh dan syarat belum disahkan Fixers.</div>
     </div>
   </div>
 </div>
@@ -769,10 +770,11 @@ const CONFIG = {
   draft: true,                                // shows the "DRAF" ribbon until Fixers confirms the claims
   signupUrl: 'https://academy.fixers.my/',    // needs a free-cohort page
   src: 'cuci-penapis',
-  salary: 'Gaji permulaan RM2,000 – RM2,500',
+  salary: 'Gaji permulaan industri RM2,000 – RM2,500',
   dryingSeconds: 20,
   jobPay: 80,                                 // placeholder: Fixers must approve any money shown
   jobBonus: 20,                               // paid when the job has no mistakes
+  company: 'Sejuk Servis',                   // generic employer in the job intro: Fixers Academy trains, it does not service aircond
   customer: 'Puan Aishah', area: 'Taman Subang Jaya · 2.4 km',
 };
 
@@ -1051,16 +1053,17 @@ const doorPivot = new THREE.Group(); doorPivot.position.set(-1.3, GY + 2.7, EZ +
   const d = new THREE.Mesh(new THREE.BoxGeometry(2.6, 5.4, .16), wood); d.position.x = 1.3; d.castShadow = true; doorPivot.add(d);
   [[1.3, 1.2], [1.3, -1.2]].forEach(([x, y]) => { const p = new THREE.Mesh(new THREE.BoxGeometry(1.8, 1.9, .05), new THREE.MeshStandardMaterial({ color: 0x9e6a48, roughness: .7 })); p.position.set(x, y, .1); doorPivot.add(p); });
   const knob = new THREE.Mesh(new THREE.SphereGeometry(.12, 12, 10), new THREE.MeshStandardMaterial({ color: 0xd9b24a, metalness: .8, roughness: .3 })); knob.position.set(2.25, 0, .16); doorPivot.add(knob); }
-// Fixers service van
+// generic aircond company van (not Fixers: the academy only trains)
 { const van = new THREE.Group(); van.position.set(3.8, GY, EZ + 21.5); van.rotation.y = 0; OUT.add(van);
   const white = new THREE.MeshStandardMaterial({ color: 0xf7f7f5, roughness: .35 });
   const body = new THREE.Mesh(new RoundedBoxGeometry(7.4, 3.3, 3.2, 3, .35), white); body.position.set(0, 2.15, 0); van.add(body);
   const cab = new THREE.Mesh(new RoundedBoxGeometry(2.4, 2.5, 3.1, 3, .4), white); cab.position.set(4.6, 1.75, 0); van.add(cab);
   const ws = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 1.2), new THREE.MeshStandardMaterial({ color: 0x2a3440, roughness: .15, metalness: .4 })); ws.position.set(4.7, 2.35, 1.57); van.add(ws);
   [-2.4, 2.6, 4.7].forEach(wx => { const w = new THREE.Mesh(new THREE.CylinderGeometry(.75, .75, .5, 20), new THREE.MeshStandardMaterial({ color: 0x1c1d1b, roughness: .9 })); w.rotation.x = Math.PI / 2; w.position.set(wx === 4.7 ? 4.4 : wx, .75, 1.45); van.add(w); });
-  const [c, x] = cnv(512, 160); x.fillStyle = '#191a18'; x.fillRect(0, 0, 512, 160); x.fillStyle = '#eac1d8'; x.fillRect(0, 128, 512, 32);
+  const [c, x] = cnv(512, 160); 
   const t = tex(c); const side = new THREE.Mesh(new THREE.PlaneGeometry(6.6, 2.06), new THREE.MeshBasicMaterial({ map: t })); side.position.set(-.2, 2.2, 1.62); van.add(side);
-  const img = new Image(); img.onload = () => { x.drawImage(img, 22, 36, 250, 56); x.fillStyle = '#eac1d8'; x.font = '700 30px Fredoka, sans-serif'; x.fillText('SERVIS AIRCOND', 300, 76); t.needsUpdate = true; }; img.src = 'media/wordmark.svg'; }
+  const draw = () => { x.fillStyle = '#f7f7f5'; x.fillRect(0, 0, 512, 160); x.fillStyle = '#3d93f0'; x.fillRect(0, 118, 512, 42); x.fillStyle = '#1d58a8'; x.fillRect(0, 110, 512, 8); x.fillStyle = '#1d58a8'; x.font = '700 58px Fredoka, sans-serif'; x.fillText('❄ ' + CONFIG.company.toUpperCase(), 26, 72); x.fillStyle = '#fff'; x.font = '700 26px Fredoka, sans-serif'; x.fillText('SERVIS · CUCI · PASANG AIRCOND', 26, 148); t.needsUpdate = true; };
+  draw(); if (document.fonts) document.fonts.ready.then(draw); }
 
 /* ---------- particles ---------- */
 const PN = 700;
@@ -1223,7 +1226,7 @@ function needTool(id){ if (S.tool === id) return true; const t = toolName(id); t
 function fmt(s){ s = Math.max(0, Math.floor(s)); return Math.floor(s/60) + ':' + String(s % 60).padStart(2, '0'); }
 
 /* ---------- points, combo, rank (gamification) ---------- */
-const RANKS = [{ n: 'PERANTIS', at: 0 }, { n: 'JURUTEKNIK MUDA', at: 1600 }, { n: 'PRO FIXERS', at: 2800 }];
+const RANKS = [{ n: 'PERANTIS', at: 0 }, { n: 'JURUTEKNIK MUDA', at: 1600 }, { n: 'JURUTEKNIK PRO', at: 2800 }];
 const PAR = { photo_before: 8, open_panel: 16, filters_out: 10, vacuum: 12, wash: 15, dry: 6, screws_out: 20, casing_off: 6, brush: 12, casing_on: 5, screws_in: 16, filters_in: 22, close_panel: 6, power_on: 9, photo_after: 6 };
 Object.assign(S, { score: 0, shown: 0, combo: 0, maxCombo: 0, rankI: 0, stepT0: 0, scrubMarks: 0 });
 const rankOf = sc => RANKS.reduce((r, k, i) => sc >= k.at ? i : r, 0);
@@ -1440,7 +1443,7 @@ function updateGuides(){ let n = 0; const s = step(), add = (p, t, e) => guide(n
 /* ---------- finish ---------- */
 function finish(){ S.ended = true; const secs = (performance.now() - S.t0) / 1000, m = S.mistakes.length;
   const stars = m === 0 ? 3 : m === 1 ? 2 : 1; const xp = Math.max(200, Math.round(1000 + Math.max(0, 600 - secs * 3) - m * 150));
-  const rank = xp >= 1400 ? 'Pro Fixers' : xp >= 1000 ? 'Juruteknik Muda' : 'Perantis';
+  const rank = xp >= 1400 ? 'Juruteknik Pro' : xp >= 1000 ? 'Juruteknik Muda' : 'Perantis';
   const best = parseFloat(store.get('cp_best') || '0'); if (!S.debug && (!best || secs < best)) store.set('cp_best', secs.toFixed(1));
   const score = S.score, rk = RANKS[rankOf(score)].n, bestSc = parseInt(store.get('cp_bestScore') || '0', 10);
   if (!S.debug && score > bestSc) store.set('cp_bestScore', String(score));
@@ -1482,7 +1485,7 @@ let ringTimer = 0;
 function showJobCall(){ document.body.classList.add('cine'); applyViewOffset(); camera.updateProjectionMatrix();
   scene.background = new THREE.Color(0x9fd3f2);
   camera.fov = 52; camera.updateProjectionMatrix(); cam.k = 1; cam.pos.set(-1.9, GY + 3.6, EZ + 32); cam.target.set(1.0, GY + 3.4, EZ);
-  $('jobCust').textContent = CONFIG.customer; $('jobArea').textContent = CONFIG.area;
+  $('jobCo').textContent = CONFIG.company.toUpperCase(); $('jobCust').textContent = CONFIG.customer; $('jobArea').textContent = CONFIG.area;
   $('jobPay').textContent = 'RM' + CONFIG.jobPay; $('jobBonus').textContent = '+ bonus RM' + CONFIG.jobBonus + ' kalau kerja kemas';
   $('job').classList.remove('hidden'); $('job').classList.remove('out'); $('phone').classList.remove('calm');
   const ring = () => { SFX.note(); navigator.vibrate && navigator.vibrate([120, 80, 120]); };
