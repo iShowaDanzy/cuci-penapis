@@ -8,7 +8,7 @@ This is a phone-first 3D web game for the top of the Fixers Academy funnel. It r
 - Repo: https://github.com/iShowaDanzy/cuci-penapis (public, GitHub Pages from `main`, root folder)
 - To update: commit in this folder and `git push`. Pages rebuilds in about a minute.
 - The page has link-preview tags (`media/share.jpg`, a 1200x630 shot of the title screen) so WhatsApp shows a card. It is marked `noindex` while it is a draft, so search engines skip it.
-- Before the real launch: remove `noindex`, set `CONFIG.draft` to false, and point `signupUrl` at the free-cohort page once Fixers confirms the claims below.
+- Before the real launch: remove `noindex`, and point `signupUrl` at the free-cohort page once Fixers confirms the claims below.
 
 ## Play locally
 
@@ -93,7 +93,6 @@ The 3D street sits at z 170, out of the room camera's range. The results screen 
 ## Settings
 
 The settings live in `CONFIG` at the top of the script:
-- `draft`: shows the "DRAF" warning on the cohort screen.
 - `signupUrl`: where the "Saya berminat" button goes.
 - `salary`: the pay line on the cohort screen.
 - `dryingSeconds`: how long the filters take to dry.
