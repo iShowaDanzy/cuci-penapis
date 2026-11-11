@@ -1548,6 +1548,32 @@ if (sstore.get('cp_replay')){ sstore.set('cp_replay', ''); start(); }
 const jump = parseInt(qs.get('step') || '0', 10);
 if (jump > 1){ S.debug = true; startDirect(); for (let k = 0; k < jump - 1; k++) AUTO[STEPS[k].id] && AUTO[STEPS[k].id](); if (jump - 1 > 5) S.dry = 1; setStep(jump - 1); setView(STEPS[jump - 1].view, true); }
 
+/* ---------- POV hand + screwdriver (screw steps) ---------- */
+// local +Z runs tip -> handle -> toward the camera; the tip sits at the group origin
+const driver = new THREE.Group(); driver.visible = false; driver.scale.setScalar(1.5); scene.add(driver);
+const drvSpin = new THREE.Group(), drvFist = new THREE.Group(); driver.add(drvSpin, drvFist);
+{ const glove = new THREE.MeshStandardMaterial({ color: 0xf4b93a, roughness: .75 }), grip = new THREE.MeshStandardMaterial({ color: 0xeac1d8, roughness: .45 }), sleeve = new THREE.MeshStandardMaterial({ color: 0x2b3a55, roughness: .9 });
+  const along = (geo, mat, parent, z) => { const m = mesh(geo, mat, parent, [0, 0, z]); m.rotation.x = Math.PI / 2; return m; };
+  along(new THREE.CylinderGeometry(.04, .04, 1.1, 12), MAT.steel, drvSpin, .55);
+  along(new THREE.CylinderGeometry(.17, .13, 1.1, 6), grip, drvSpin, 1.65);   // 6 sides so the spin is visible
+  along(new THREE.CylinderGeometry(.1, .1, .12, 12), MAT.dark, drvSpin, 1.1);
+  [1.36, 1.57, 1.78, 1.99].forEach(z => { const f = mesh(new THREE.TorusGeometry(.25, .1, 8, 16, Math.PI * 1.25), glove, drvFist, [0, 0, z]); f.rotation.z = -.35; });
+  const palm = mesh(new THREE.SphereGeometry(.32, 16, 12), glove, drvFist, [.02, -.22, 1.7]); palm.scale.set(1, .8, 1.45);
+  const thumb = mesh(new THREE.CapsuleGeometry(.1, .4, 4, 8), glove, drvFist, [.3, -.08, 1.42]); thumb.rotation.x = Math.PI / 2;
+  const arm = new THREE.Group(); arm.position.set(0, -.3, 2.05); arm.rotation.x = .3; driver.add(arm);   // forearm runs off the bottom of the screen
+  along(new THREE.CylinderGeometry(.3, .27, .4, 16), glove, arm, .25);
+  along(new THREE.CylinderGeometry(.34, .27, 6, 16), sleeve, arm, 3.4); }
+const drvAim = new V3(), drvTo = new V3();
+function updateDriver(){ const s = S.started && !S.ended && step(), on = s && (s.id === 'screws_out' || s.id === 'screws_in') && S.tool === 'screwdriver';
+  const turning = on && drag && drag.type === 'screw';
+  const sc = on && (turning ? drag.sc : screws.find(q => (s.id === 'screws_out' ? ['capped', 'in'] : ['loose']).includes(q.state)));
+  if (!sc){ driver.visible = false; return; }
+  drvAim.set(sc.g.position.x > 1 ? -.6 : .6, -.75, 1).normalize();   // mirror on the right screw so the hand stays on screen
+  sc.head.getWorldPosition(drvTo).addScaledVector(drvAim, turning ? .05 : .5 + .04 * Math.sin(performance.now() / 300));   // hover until the finger starts turning
+  if (driver.visible) driver.position.lerp(drvTo, .3); else { driver.position.copy(drvTo); driver.visible = true; }
+  driver.lookAt(drvTo.copy(driver.position).add(drvAim));
+  drvSpin.rotation.z = sc.head.rotation.z; drvFist.rotation.z = ((Math.abs(sc.head.rotation.z) % 1.4) - .7) * .5 * Math.sign(sc.head.rotation.z || 1); }   // wrist twists, then regrips
+
 /* ---------- loop ---------- */
 let last = performance.now();
 function frame(now){ const dt = Math.min(.05, (now - last) / 1000); last = now;
@@ -1559,7 +1585,7 @@ function frame(now){ const dt = Math.min(.05, (now - last) / 1000); last = now;
   if (S.started && !S.ended){ $('timerT').textContent = fmt((now - S.t0) / 1000);
     if (step().id === 'filters_in' && S.fetchPhase){ setMeter(S.dry); $('hint').textContent = S.dry < 1 ? `Penapis sedang kering di tempat teduh: ${Math.round(S.dry * 100)}%` : 'Dah kering! Ketik penapis untuk ambil.'; }
     S.idle += dt; if (S.idle > 6 && S.tool !== step().tool){ [...toolsEl.children].forEach(b => b.classList.toggle('pulse', b.dataset.id === step().tool)); } }
-  stepParticles(dt); updateGuides();
+  stepParticles(dt); updateGuides(); updateDriver();
   renderer.render(scene, camera); requestAnimationFrame(frame); }
 requestAnimationFrame(frame);
 window.__S = S; window.__setStep = setStep;
