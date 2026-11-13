@@ -753,7 +753,7 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
 
 <!-- intro clip (skippable) and the full film -->
 <div id="introVid" class="vidwrap hidden">
-  <video id="introV" src="media/intro.mp4" poster="media/intro-poster.jpg" playsinline preload="auto"></video>
+  <video id="introV" src="media/kisah-ali.mp4" poster="media/intro-poster.jpg" playsinline preload="auto"></video>
   <button class="skip slab pink" id="skipIntro">LANGKAU ▶</button>
 </div>
 <div id="filmVid" class="vidwrap hidden">
@@ -1522,7 +1522,8 @@ $('startBtn').onclick = () => {
   const go = () => { if (done) return; done = true; try { v.pause(); } catch(e){} wrap.classList.add('hidden'); start(); };
   wrap.classList.remove('hidden'); v.currentTime = 0;
   v.onended = go; $('skipIntro').onclick = go;
-  const p = v.play(); if (p && p.catch) p.catch(go);
+  // the whole film plays; it only stops early on LANGKAU. If sound is blocked, play muted rather than skipping.
+  const p = v.play(); if (p && p.catch) p.catch(() => { v.muted = true; const q = v.play(); if (q && q.catch) q.catch(go); });
 };
 $('filmBtn').onclick = () => { const v = $('filmV'); $('filmVid').classList.remove('hidden'); v.currentTime = 0; const p = v.play(); if (p && p.catch) p.catch(() => {}); };
 $('closeFilm').onclick = () => { const v = $('filmV'); try { v.pause(); } catch(e){} $('filmVid').classList.add('hidden'); };
