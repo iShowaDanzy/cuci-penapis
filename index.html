@@ -1032,7 +1032,7 @@ const shadeLbl = labelSprite('TEDUH', '#2f6b64', '#fff', .8, 'cloud'); shadeLbl.
 const sun = new THREE.Group(); sun.position.set(BX + 3.4, 0, .6); scene.add(sun); sun.userData.kind = 'zoneSun';
 const beam = mesh(new THREE.PlaneGeometry(3.2, 5), new THREE.MeshBasicMaterial({ color: 0xffd34d, transparent: true, opacity: .35, depthWrite: false }), sun, [0, -.3, .1], false); beam.rotation.z = .35;
 mesh(new THREE.PlaneGeometry(4.4, 3.4), new THREE.MeshBasicMaterial({ color: 0xfff1b0, transparent: true, opacity: .0, depthWrite: false }), sun, [0, -.6, .2], false);
-const sunLbl = labelSprite('PANAS', '#e0901a', '#fff', .8, 'sun'); sunLbl.position.set(0, 1.75, .6); sun.add(sunLbl);
+const sunLbl = labelSprite('MATAHARI', '#e0901a', '#fff', .8, 'sun'); sunLbl.position.set(0, 1.75, .6); sun.add(sunLbl);
 const dryPos = { shade: [new V3(BX - 3.4, .35, 1.0), new V3(BX - 3.4, -.55, 1.0)], sun: [new V3(BX + 3.4, .35, 1.0), new V3(BX + 3.4, -.55, 1.0)], hold: [new V3(BX, .7, 1.2), new V3(BX, -.05, 1.2)] };
 
 /* ---------- outside: customer's terrace house and the Fixers van ---------- */
@@ -1186,7 +1186,7 @@ const STEPS = [
   { id: 'filters_out',  stage: 1, tool: 'hand',   view: 'close', title: 'Keluarkan 2 penapis', hint: 'Pegang tab di bawah penapis dan tarik ke BAWAH perlahan-lahan.' },
   { id: 'vacuum',       stage: 1, tool: 'vacuum', view: 'bench', title: 'Vakum habuk', hint: 'Pilih {vacuum} Vakum dan sapu atas penapis sampai habuk hilang.' },
   { id: 'wash',         stage: 1, tool: 'water',  view: 'bench', title: 'Bilas penapis', hint: 'Pilih {water} Air dan bilas sampai bersih.' },
-  { id: 'dry',          stage: 1, tool: 'hand',   view: 'dry',   title: 'Keringkan penapis', hint: 'Penapis ini plastik. Di mana patut jemur? Ketik satu tempat.' },
+  { id: 'dry',          stage: 1, tool: 'hand',   view: 'dry',   title: 'Keringkan penapis', hint: 'Penapis basah. Di mana patut jemur? Ketik satu tempat.' },
   { id: 'screws_out',   stage: 2, tool: 'screwdriver', view: 'close', title: 'Buka 3 skru casing', hint: 'Pilih {screwdriver}. Ketik penutup skru, kemudian pusing jari LAWAN arah jam.' },
   { id: 'casing_off',   stage: 2, tool: 'hand',   view: 'close', title: 'Tanggalkan casing', hint: 'Tarik casing ke BAWAH dan keluar.' },
   { id: 'brush',        stage: 2, tool: 'brush',  view: 'close', title: 'Berus sirip gegelung', hint: 'Pilih {brush}. Berus ATAS–BAWAH, ikut arah sirip.' },
@@ -1200,7 +1200,7 @@ const STEPS = [
 const LESSON = {
   isolator_first: 'Matikan dengan remote dulu, baru tutup suis dinding. Jangan putus kuasa semasa unit sedang berjalan.',
   rinse_front: 'Bilas dari belakang supaya habuk keluar ikut arah ia masuk, bukan tertolak ke dalam jaring.',
-  dry_sun: 'Panas terik buat plastik penapis bengkok dan rapuh. Jemur di tempat teduh.',
+  dry_shade: 'Di tempat teduh penapis lambat kering dan boleh berbau atau berkulat. Jemur di bawah matahari.',
   fin_bent: 'Sirip aluminium sangat lembut. Berus ikut arah sirip (atas–bawah), bukan melintang.',
 };
 const S = {
@@ -1342,7 +1342,7 @@ canvas.addEventListener('pointerdown', e => { if (!S.started || S.ended || S.loc
     if (S.fetchPhase && p.kind === 'filter'){ if (!needTool('hand')) return; return fetchFilters(); }
     if (!S.fetchPhase && p.kind === 'filter'){ if (!needTool('hand')) return; const i = p.obj.userData.idx, f = filters[i]; if (f.t === 0) return;
       drag = { type: 'filter', i, y0: y, t0: f.t, ppu: pxPerUnit(f.g.position) }; return; } }
-  if (s.id === 'dry' && (p.kind === 'zoneShade' || p.kind === 'zoneSun' || p.kind === 'filter')){ if (p.kind === 'filter') return toast('Ketik tempat untuk jemur: TEDUH atau PANAS.', 'info'); return chooseDry(p.kind === 'zoneShade' ? 'shade' : 'sun'); }
+  if (s.id === 'dry' && (p.kind === 'zoneShade' || p.kind === 'zoneSun' || p.kind === 'filter')){ if (p.kind === 'filter') return toast('Ketik tempat untuk jemur: TEDUH atau MATAHARI.', 'info'); return chooseDry(p.kind === 'zoneShade' ? 'shade' : 'sun'); }
   if (s.id === 'screws_out' || s.id === 'screws_in'){ if (!needTool('screwdriver')) return; const sc = nearestScrew(x, y, s.id === 'screws_out' ? ['capped', 'in'] : ['loose']); if (!sc) return;
     if (sc.state === 'capped'){ popCap(sc); return; }
     const c = toScreen(sc.g.getWorldPosition(new V3())); drag = { type: 'screw', sc, cx: c.x, cy: c.y, last: Math.atan2(y - c.y, x - c.x) }; return; }
@@ -1408,8 +1408,8 @@ function scrubAt(x, y, dx, dy){ const s = step().id;
 function scrubMark(pr, x, y){ const m = Math.floor(pr / .86 * 4); if (m > S.scrubMarks && m < 4){ S.scrubMarks = m; addPoints(10, ['', '25%', '50%', '75%'][m], { x, y: y - 50 }); } }
 function chooseDry(zone){ SFX.click(); const pos = dryPos[zone];
   filters.forEach((f, j) => { const p0 = f.g.position.clone(), s0 = f.g.scale.x; tween(.7, k => { f.g.position.lerpVectors(p0, pos[j], k); f.g.scale.setScalar(s0 + (.42 - s0) * k); }); });
-  if (zone === 'sun'){ mistake('dry_sun'); S.drying = false; wait(1.4, () => toast('Pindahkan ke tempat TEDUH.', 'info')); return; }
-  S.drying = true; worldPop(20, 'TEDUH', dryPos.shade[0].clone().add(new V3(1, .6, 0)), 'gold'); advance(.9); }
+  if (zone === 'shade'){ mistake('dry_shade'); S.drying = false; wait(1.4, () => toast('Pindahkan ke bawah MATAHARI.', 'info')); return; }
+  S.drying = true; worldPop(20, 'MATAHARI', dryPos.sun[0].clone().add(new V3(-1, .6, 0)), 'gold'); advance(.9); }
 function popCap(sc){ SFX.pop(); sc.state = 'in'; worldPop(5, '', sc.g.getWorldPosition(new V3())); const c0 = sc.cap.position.clone();
   tween(.45, k => { sc.cap.position.set(c0.x + .3 * k, c0.y - .9 * k * k + .25 * k, c0.z + .5 * k); sc.cap.rotation.z = 4 * k; }, () => sc.cap.visible = false); }
 function turnScrew(sc, d){ const before = sc.turn; sc.turn = Math.max(0, sc.turn + d); const FULL = Math.PI * 4;
@@ -1556,7 +1556,7 @@ const AUTO = {
   filters_out: () => filters.forEach((f, j) => { f.g.position.copy(benchPos[j]); f.where = 'bench'; }),
   vacuum: () => filters.forEach(f => { f.dust.x.clearRect(0,0,f.dust.w,f.dust.h); f.dust.t.needsUpdate = true; f.dust.cleaned = f.dust.total; }),
   wash: () => filters.forEach(f => { f.res.x.clearRect(0,0,f.res.w,f.res.h); f.res.t.needsUpdate = true; f.g.rotation.y = Math.PI; f.wetM.opacity = .9; }),
-  dry: () => { filters.forEach((f, j) => { f.g.position.copy(dryPos.shade[j]); f.g.scale.setScalar(.42); }); S.drying = true; },
+  dry: () => { filters.forEach((f, j) => { f.g.position.copy(dryPos.sun[j]); f.g.scale.setScalar(.42); }); S.drying = true; },
   screws_out: () => screws.forEach(s => { s.state = 'out'; s.cap.visible = false; s.head.visible = false; }),
   casing_off: () => { casing.visible = false; S.casingOn = false; },
   brush: () => { coilOv.x.clearRect(0,0,coilOv.w,coilOv.h); coilOv.t.needsUpdate = true; },
@@ -1606,7 +1606,7 @@ function frame(now){ const dt = Math.min(.05, (now - last) / 1000); last = now;
   if (S.running && Math.random() < .45) emit(new V3(rnd(-3.3, 3.3), -H/2 - .12, FZ - .1), new V3(rnd(-.08,.08), rnd(-1.1,-.7), rnd(.6,1.1)), [.8,.92,1], rnd(.12,.22), 1.3, -.1);
   if (S.drying && S.dry < 1){ S.dry = Math.min(1, S.dry + dt / CONFIG.dryingSeconds); filters.forEach(f => f.wetM.opacity = .9 * (1 - S.dry)); }
   if (S.started && !S.ended){ $('timerT').textContent = fmt((now - S.t0) / 1000);
-    if (step().id === 'filters_in' && S.fetchPhase){ setMeter(S.dry); $('hint').textContent = S.dry < 1 ? `Penapis sedang kering di tempat teduh: ${Math.round(S.dry * 100)}%` : 'Dah kering! Ketik penapis untuk ambil.'; }
+    if (step().id === 'filters_in' && S.fetchPhase){ setMeter(S.dry); $('hint').textContent = S.dry < 1 ? `Penapis sedang kering di bawah matahari: ${Math.round(S.dry * 100)}%` : 'Dah kering! Ketik penapis untuk ambil.'; }
     S.idle += dt; if (S.idle > 6 && S.tool !== step().tool){ [...toolsEl.children].forEach(b => b.classList.toggle('pulse', b.dataset.id === step().tool)); } }
   stepParticles(dt); updateGuides(); updateDriver();
   renderer.render(scene, camera); requestAnimationFrame(frame); }
