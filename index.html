@@ -668,6 +668,22 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
   </div>
 </div>
 
+<!-- after the film: sign up now or play first (CTA 1, Malay form) -->
+<div id="cta1" class="screen hidden">
+  <div class="sheet">
+    <div class="sheet-head"><img src="media/wordmark.svg" alt="FIXERS" style="filter:brightness(0) saturate(100%)"><span>ACADEMY</span></div>
+    <div class="sheet-body">
+      <div class="kicker">Kisah Ali boleh jadi kisah kamu</div>
+      <div class="big">Nak <em>daftar</em> sekarang, atau cuba dulu?</div>
+      <p class="p">Kohort pertama <b>PERCUMA</b>, terhad kepada 5–8 orang. Daftar terus, atau main simulasi 2 minit dulu untuk rasa kerja juruteknik aircond.</p>
+      <a class="btn slab pink" id="joinBtnMs" target="_blank" rel="noopener">DAFTAR SEKARANG →</a>
+      <button class="btn slab ghost" id="playBtn"><svg class="ic"><use href="#ic-play"/></svg><span>Main game dulu</span></button>
+      <div class="fine">Butang daftar membuka borang pendaftaran Fixers Academy.</div>
+      <div class="powered"><span>Powered by:</span><img src="media/dblox.png" alt="D'BLOX"></div>
+    </div>
+  </div>
+</div>
+
 <!-- wash choice -->
 <div id="choice" class="screen hidden">
   <div class="sheet">
@@ -749,7 +765,7 @@ body.prestart #top,body.prestart #bottom,body.prestart #remote{visibility:hidden
       <a class="btn slab pink" id="joinBtn" target="_blank" rel="noopener">SAYA BERMINAT →</a>
       <button class="btn slab ghost" id="filmBtn"><svg class="ic"><use href="#ic-play"/></svg><span>Tonton kisah Ali (70 s)</span></button>
       <button class="btn slab ghost" id="againBtn"><svg class="ic"><use href="#ic-rot-cw"/></svg><span>Main lagi</span></button>
-      <div class="fine">Butang ini membuka academy.fixers.my. Game ini tidak menyimpan maklumat peribadi kamu.</div>
+      <div class="fine">Butang ini membuka borang pendaftaran Fixers Academy (Bahasa Inggeris). Game ini tidak menyimpan maklumat peribadi kamu.</div>
       <div class="powered"><span>Powered by:</span><img src="media/dblox.png" alt="D'BLOX"></div>
     </div>
   </div>
@@ -771,8 +787,8 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 
 /* ---------- settings Fixers can change ---------- */
 const CONFIG = {
-  signupUrl: 'https://academy.fixers.my/',    // needs a free-cohort page
-  src: 'cuci-penapis',
+  signupUrlMs: 'https://academy.fixers.my/daftar/?src=creator-0',   // CTA 1: after the film (Malay form)
+  signupUrl: 'https://academy.fixers.my/en/apply/?src=creator-0',  // CTA 2: end of the game (English form)
   salary: 'Gaji permulaan industri RM2,000 – RM2,500',
   dryingSeconds: 20,
   jobPay: 80,                                 // placeholder: Fixers must approve any money shown
@@ -1476,10 +1492,10 @@ $('shareBtn').onclick = async () => { const r = S.result || { stars: 0, secs: 0 
   try { await navigator.clipboard.writeText(text + ' ' + location.href.split('?')[0]); toast('Pautan disalin. Hantar kepada kawan!', 'good'); } catch(e){ toast(text, 'info', 4000); } };
 let who = '';
 document.querySelectorAll('#who .chip').forEach(c => c.onclick = () => { who = c.dataset.who; document.querySelectorAll('#who .chip').forEach(q => q.classList.toggle('sel', q === c)); setJoin(); });
-function setJoin(){ const u = new URL(CONFIG.signupUrl); u.searchParams.set('src', CONFIG.src); if (who) u.searchParams.set('who', who); $('joinBtn').href = u.toString(); }
+function setJoin(){ const u = new URL(CONFIG.signupUrl); if (who) u.searchParams.set('who', who); $('joinBtn').href = u.toString(); }
 $('againBtn').onclick = () => { sstore.set('cp_replay', '1'); location.href = location.pathname; };
 $('retryBtn').onclick = () => { sstore.set('cp_replay', '1'); location.href = location.pathname; };
-$('salaryLine').textContent = CONFIG.salary; setJoin();
+$('salaryLine').textContent = CONFIG.salary; setJoin(); $('joinBtnMs').href = CONFIG.signupUrlMs;
 const bestSc0 = parseInt(store.get('cp_bestScore') || '0', 10); if (bestSc0) $('bestLine').textContent = 'Rekod mata kamu: ' + bestSc0;
 
 /* ---------- job call and walk-in ---------- */
@@ -1523,12 +1539,13 @@ $('startBtn').onclick = () => {
   if (sstore.get('cp_intro_seen')) return start();
   sstore.set('cp_intro_seen', '1');
   const wrap = $('introVid'), v = $('introV'); let done = false;
-  const go = () => { if (done) return; done = true; try { v.pause(); } catch(e){} wrap.classList.add('hidden'); start(); };
+  const go = () => { if (done) return; done = true; try { v.pause(); } catch(e){} wrap.classList.add('hidden'); $('intro').classList.add('hidden'); $('cta1').classList.remove('hidden'); };
   wrap.classList.remove('hidden'); v.currentTime = 0;
   v.onended = go; $('skipIntro').onclick = go;
   // the whole film plays; it only stops early on LANGKAU. If sound is blocked, play muted rather than skipping.
   const p = v.play(); if (p && p.catch) p.catch(() => { v.muted = true; const q = v.play(); if (q && q.catch) q.catch(go); });
 };
+$('playBtn').onclick = () => { $('cta1').classList.add('hidden'); start(); };
 $('filmBtn').onclick = () => { const v = $('filmV'); $('filmVid').classList.remove('hidden'); v.currentTime = 0; const p = v.play(); if (p && p.catch) p.catch(() => {}); };
 $('closeFilm').onclick = () => { const v = $('filmV'); try { v.pause(); } catch(e){} $('filmVid').classList.add('hidden'); };
 
